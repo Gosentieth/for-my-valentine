@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vir Suaney!❤️</title>
+    <title>💌 Vir Suaney! 💌</title>
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+
     <style>
         body {
             background-color: #ffebee;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             min-height: 100vh;
             margin: 0;
             font-family: 'Arial', sans-serif;
             overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
         }
 
         h1 { color: #d32f2f; margin-bottom: 20px; text-align: center; padding: 0 10px; }
@@ -68,60 +77,84 @@
             text-align: center;
         }
 
+        #final-view-wrapper {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .heart-note {
+            background-color: white;
+            padding: 40px;
+            margin: 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 500px;
+            text-align: center;
+            border: 3px solid #ff4081;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .note-header-icon { font-size: 60px; margin-bottom: 10px; display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
         .heart-fall {
             position: fixed;
             top: -10%;
             color: #ff4081;
             font-size: 20px;
-            z-index: -1;
+            z-index: 1;
+            pointer-events: none;
             animation: fall linear forwards;
         }
 
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-
-        /* Hidden YouTube Player */
-        #music-player { display: none; }
     </style>
 </head>
 <body>
 
-<iframe id="music-player" width="0" height="0"
-        src="https://www.youtube.com/watch?v=3LmSjmcUNh8"
-        frameborder="0">
-</iframe>
+<div id="main-content">
+    <h1>Will you be my Valentine? 💌</h1>
 
-<h1>Will you be my Valentine? ❤️</h1>
+    <div class="photo-container">
+        <img src="GS3.jpeg" class="heart-photo hug-photo" alt="Us hugging">
+        <img src="GS1.jpeg" class="heart-photo" alt="Us kissing">
+        <img src="GS2.jpeg" class="heart-photo" alt="Us together">
+    </div>
 
-<div class="photo-container">
-    <img src="GS3.jpeg" class="heart-photo hug-photo" alt="Photo 1">
-    <img src="GS1.jpeg" class="heart-photo" alt="Photo 2">
-    <img src="GS2.jpeg" class="heart-photo" alt="Photo 3">
+    <div class="buttons">
+        <button id="yesBtn">YES!</button>
+        <button id="noBtn">No</button>
+    </div>
+
+    <div id="countdown">Loading countdown...</div>
 </div>
 
-<div class="buttons">
-    <button id="yesBtn">YES!</button>
-    <button id="noBtn">No</button>
-</div>
+<div id="final-view-wrapper">
+    <div class="heart-note">
+        <span class="note-header-icon">💌</span>
+        <h1 style="color:#d32f2f; font-size: 2rem; margin-top:0;">Geweet jy kon nie Nee se nie! 🤗</h1>
 
-<div id="countdown">Aftel na Valentynsdag...</div>
+        <p style="font-size:1.3rem; line-height:1.6; color:#333;">
+            Eks so bly jyt JA gese, al was jy biq gevorseer😭. <br><br>
+            Ek is baie dankbaar vir ons verhouding en sal wat ons het verruil vir niks nie.
+        </p>
+
+        <p style="font-size:1.3rem; font-weight: bold; color:#d32f2f; margin-top: 30px;">
+            Vir ewig joune Giepie ❤️<br>
+            Ek is baie lief vir jou!
+        </p>
+    </div>
+</div>
 
 <script>
-    // YouTube API Music Trigger
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('music-player');
-    }
-
-    // Start music on first interaction
-    document.addEventListener('click', function() {
-        player.playVideo();
-    }, { once: true });
-
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart-fall');
@@ -142,11 +175,13 @@
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        document.getElementById("countdown").innerHTML = "Aftel na Valentynsdag: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+        document.getElementById("countdown").innerHTML = "Countdown to Valentine's Day: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
     }, 1000);
 
     const noBtn = document.getElementById('noBtn');
     const yesBtn = document.getElementById('yesBtn');
+    const mainContent = document.getElementById('main-content');
+    const finalView = document.getElementById('final-view-wrapper');
     let moveCount = 0;
     let yesSize = 1.2;
 
@@ -173,13 +208,8 @@
     });
 
     yesBtn.addEventListener('click', () => {
-        document.body.innerHTML = `
-                <div style="text-align:center; margin-top:150px;">
-                    <h1 style="font-size:4rem;">Geweet jy kon nie Nee se nie🤗❤️</h1>
-                    <p style="font-size:1.5rem;">Ek is baie lief vir jou!</p>
-                    <div style="font-size:100px;">😘</div>
-                </div>
-            `;
+        mainContent.style.display = 'none';
+        finalView.style.display = 'flex';
     });
 </script>
 </body>
