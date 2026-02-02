@@ -1,20 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>A Special Message</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Valentine ❤️</title>
     <style>
-        body { text-align: center; font-family: 'Arial', sans-serif; background-color: #ffebee; }
-        .container { margin-top: 100px; }
-        h1 { color: #d32f2f; }
-        button { padding: 15px 30px; font-size: 18px; cursor: pointer; border-radius: 10px; border: none; }
-        #yes { background-color: #ff4081; color: white; }
+        body {
+            background-color: #ffebee;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden; /* Keeps hearts inside */
+        }
+
+        h1 { color: #d32f2f; text-shadow: 2px 2px white; }
+
+        .photo-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .photo-container img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 5px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .buttons {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #yesBtn { background-color: #ff4081; color: white; box-shadow: 0 4px 15px rgba(255, 64, 129, 0.4); }
+
+        #noBtn {
+            background-color: #9e9e9e;
+            color: white;
+            position: absolute;
+        }
+
+        /* Heart Animation */
+        .heart {
+            position: fixed;
+            top: -10%;
+            color: #ff4081;
+            font-size: 20px;
+            user-select: none;
+            z-index: -1;
+            animation: fall linear forwards;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Will you be my Valentine? ❤️</h1>
-    <p>I made this just for you.</p>
-    <button id="yes" onclick="alert('Yay! See you on the 14th! 😘')">YES!</button>
+
+<h1>Will you be my Valentine? ❤️</h1>
+
+<div class="photo-container">
+    <img src="GS3.jpeg" alt="gs 1">
+    <img src="GS1.jpeg" alt="gs 2">
+    <img src="GS2.jpeg" alt="gs 3">
 </div>
+
+<div class="buttons">
+    <button id="yesBtn">YES!</button>
+    <button id="noBtn">No</button>
+</div>
+
+<script>
+    // Falling Hearts Logic
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '❤️';
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = Math.random() * 3 + 2 + 's';
+        heart.style.opacity = Math.random();
+        document.body.appendChild(heart);
+
+        setTimeout(() => { heart.remove(); }, 5000);
+    }
+    setInterval(createHeart, 500); // Adjust this number for more/less hearts
+
+    // Runaway No Button Logic
+    const noBtn = document.getElementById('noBtn');
+    noBtn.addEventListener('mouseover', () => {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+        noBtn.style.left = x + 'px';
+        noBtn.style.top = y + 'px';
+    });
+
+    // Yes Button Logic
+    document.getElementById('yesBtn').addEventListener('click', () => {
+        alert("Geweet jy kon nie nee se nie😊❤️");
+    });
+</script>
 </body>
 </html>
